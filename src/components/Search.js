@@ -1,10 +1,12 @@
 import React from 'react';
+import ToggleButtons from './ToggleButtons';
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = { movieSearchFor: '' };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getValue = this.getValue.bind(this);
   }
 
   handleChange() {
@@ -22,6 +24,11 @@ class Search extends React.Component {
     }
     this.props.cb(this.state.movieSearchFor);
 
+  }
+
+  getValue(buttonVal) {
+    //console.log(buttonVal);
+    this.props.toggleVal(buttonVal);
   }
 
   render() {
@@ -45,6 +52,7 @@ class Search extends React.Component {
 
     return (
       <div style={formStyle} >
+        <ToggleButtons cb={this.getValue}/>
         <form id="movieForm" onSubmit={this.handleSubmit}>
           <input placeholder="Search..." style={inputStyle} type="text" value={this.state.movieSearchFor} onChange={this.handleChange} />
           <input class="btn btn-secondary" type="submit" value="Go!" />

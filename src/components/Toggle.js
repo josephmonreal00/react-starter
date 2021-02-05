@@ -4,26 +4,21 @@ class Toggle extends React.Component {
     super(props);
     this.state = {
       text: 'Watched',
-      button: 'hideButton'
+      isToggleOn: false
     };
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    this.setState({
-      text: '',
-      button: 'showButton'
-    })
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
   }
   render() {
-    const hideButton = {
 
-    };
-
-    const showButton = {
-
-    };
     return (
-      <button style={this.state.button} class='btn btn-success'>{this.state.text}</button>
+      <button class='btn btn-success' onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'Watched' : 'Watch'}
+      </button>
     )
   }
 }

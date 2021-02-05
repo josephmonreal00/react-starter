@@ -10,10 +10,14 @@ class App extends React.Component {
       movies: [],
       og_movies: [ {title: 'Mean Girls'}, {title: 'Hackers'},{title: 'The Grey'},{title: 'Sunshine'}, {title: 'Ex Machina'}, {title: 'Sunset'}, {title: 'MeMe'}, {title: 'Hackathton'}],
       searchedFor: '',
-      movieAdded: []
+      movieAdded: [],
+      toggleVal: '',
+      watched: [],
+      toWatch: []
     };
     this.getMovie = this.getMovie.bind(this);
     this.addMovie = this.addMovie.bind(this);
+    this.getToggleValue = this.getToggleValue.bind(this);
   }
 
   getMovie(theMovieSearch) {
@@ -53,12 +57,33 @@ class App extends React.Component {
     // });
   }
 
+  getToggleValue(param) {
+    if ( param === 'Watched') {
+      for ( let i = 0; i < this.state.og_movies.length; i++ ) {
+        console.log(this.state.og_movies[i]);
+      }
+      this.setState({
+        watched: this.state.watched.concat({title: param})
+      })
+    } else {
+      this.setState({
+        toWatch: this.state.toWatch.concat({title: param})
+      })
+    }
+    this.setState({
+      toggleVal: param
+    })
+    console.log('getting toggle value inside of app', param);
+    console.log(this.state.watched);
+    console.log(this.state.toWatch);
+  }
+
   render(){
     return(
     <div>
       <Header />
       <AddMovies cb={this.addMovie} />
-      <Search cb={this.getMovie}/>
+      <Search toggleVal={this.getToggleValue} cb={this.getMovie}/>
       <MovieList movieList={this.state.movieAdded} />
     </div>
   )}
